@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}MedSync - Admin Notifications{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block navbar %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">System Notifications</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Description</th>
+                        <th>User ID</th>
+                        <th>Account Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notification in notifications %}
+                    <tr>
+                        <td>{{ notification.datetime }}</td>
+                        <td>{{ notification.description }}</td>
+                        <td>{{ notification.user_id }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form action="{{ url_for('restrict_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="dropdown-item text-warning">
+                                                <i class="bi bi-exclamation-triangle"></i> Restrict Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="{{ url_for('disable_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="dropdown-item text-secondary">
+                                                <i class="bi bi-pause-circle"></i> Disable Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="{{ url_for('delete_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="dropdown-item text-danger" 
+                                                    onclick="return confirm('Are you sure you want to delete this account?')">
+                                                <i class="bi bi-trash"></i> Delete Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

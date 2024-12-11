@@ -99,24 +99,43 @@ def patient_records():
     ]
     return render_template('patient_records.html', records=records)
 
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    admin_username = "admin1"
+    admin_password = "admin123"
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == admin_username and password == admin_password:
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid username or password.', 'error')
+    return render_template('admin_login.html')
+
 @app.route('/admin_dashboard')
-@login_required
 def admin_dashboard():
-    if current_user.id not in users or users[current_user.id]['role'] != 'admin':
-        flash('Access denied. Admin only.', 'error')
-        return redirect(url_for('home'))
+    # if current_user.id not in users or users[current_user.id]['role'] != 'admin':
+    #     flash('Access denied. Admin only.', 'error')
+    #     return redirect(url_for('home'))
 
-    # Placeholder: Fetch user accounts and SIEM events from database
-    user_accounts = [
-        {'username': 'staff1', 'role': 'staff', 'last_login': '2023-05-01 10:30:00'},
-        {'username': 'patient1', 'role': 'patient', 'last_login': '2023-04-30 15:45:00'},
-    ]
-    siem_events = [
-        {'timestamp': '2023-05-01 11:00:00', 'type': 'login', 'user': 'staff1', 'details': 'Successful login'},
-        {'timestamp': '2023-05-01 11:05:00', 'type': 'upload', 'user': 'staff1', 'details': 'Document uploaded for patient1'},
-    ]
-    return render_template('admin_dashboard.html', users=user_accounts, siem_events=siem_events)
+    # Sample data - replace with actual database queries
+    dashboard_data = {
+        'total_users': len(users),
+        'active_patients': sum(1 for u in users.values() if u['role'] == 'patient'),
+        'staff_count': sum(1 for u in users.values() if u['role'] == 'staff'),
+        'total_records': 150,  # Replace with actual count
+        'recent_activities': [
+            {'time': '2024-01-20 10:30', 'user': 'Dr. Smith', 'action': 'Upload', 'details': 'Medical Report'},
+            {'time': '2024-01-20 09:15', 'user': 'Admin', 'action': 'User Created', 'details': 'New Patient'},
+        ]
+    }
+    
+    return render_template('admin_dashboard.html', **dashboard_data)
 
+@app.route('/admin_notif')
+def admin_notif():
+    return render_template('admin_notif.html')
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
