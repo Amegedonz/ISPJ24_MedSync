@@ -1,0 +1,9 @@
+asctime,name,levelname,message,user_id
+2024-04-25 14:23:45,MedSync,DEBUG,"User login successful for user_id: 10",10
+2024-04-25 14:24:10,MedSync,INFO,"User accessed patient records for patient_id: 501",10
+2024-04-25 14:25:30,MedSync,ERROR,"Failed to retrieve documents for user_id: 12 due to database timeout",12
+2024-04-25 14:26:15,MedSync,CRITICAL,"SECURITY BREACH DETECTED - Multiple failed login attempts (10) from IP 192.168.1.100 attempting to access patient records. User account 'doctor_smith' has been temporarily locked. Possible brute force attack in progress. Session ID: 5f3e9b2d-8c1a-4e8b-9c1a-8c1a4e8b9c1a. Immediate investigation required.",12
+2024-04-25 14:27:50,MedSync,WARNING,"User_id: 15 attempted unauthorized access to restricted area",15
+2024-04-25 14:28:05,MedSync,INFO,"User_id: 20 updated patient record for patient_id: 502",20
+2024-04-25 14:29:20,MedSync,ERROR,"Error processing payment for user_id: 18 due to invalid credit card details",18
+2024-04-25 14:30:35,MedSync,CRITICAL,"System outage detected. All services are currently unavailable. Immediate action required.",admin
