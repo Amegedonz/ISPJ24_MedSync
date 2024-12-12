@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}MedSync - Home{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+    <div class="container">
+        <a class="navbar-brand" href="/">MedSync</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="min-vh-100">
+<div class="container pt-5">
+    <h1 class="display-4">Welcome to MedSync</h1>
+    <p class="lead">A secure platform for healthcare practitioners to share medical documents with patients.</p>
+    <hr class="my-4">
+    <p>Streamline your medical document sharing process and improve patient care.</p>
+    <a class="btn btn-primary btn-lg" href="/register" role="button">Get Started</a>
+</div>
+
+<div class="container" >
+    <div class="col mt-5"></div>
+        <div class="col-md-4">
+            <h2>For Healthcare Providers</h2>
+            <p>Easily upload and manage patient documents, reports, and scans.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>For Patients</h2>
+            <p>Access your medical records securely and conveniently.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Secure &amp; Compliant</h2>
+            <p>Our platform adheres to strict security standards to protect your data.</p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
