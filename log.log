@@ -33,3 +33,10 @@ SECURITY BREACH DETECTED - Multiple failed login attempts (10) from IP 192.168.1
 User_id: 15 attempted unauthorized access to restricted area
 Error processing payment for user_id: 18 due to invalid credit card details
 System outage detected. All services are currently unavailable. Immediate action required.
+User login successful for user_id: 10
+User accessed patient records for patient_id: 501
+'Failed to retrieve documents for user_id: 12 due to database timeout', extra={'user_id': user_id_error}
+SECURITY BREACH DETECTED - Multiple failed login attempts (10) from IP 192.168.1.100 attempting to access patient records. User account "doctor_smith" has been temporarily locked. Possible brute force attack in progress. Session ID: 5f3e9b2d-8c1a-4e8b-9c1a-8c1a4e8b9c1a. Immediate investigation required.
+User_id: 15 attempted unauthorized access to restricted area
+Error processing payment for user_id: 18 due to invalid credit card details
+System outage detected. All services are currently unavailable. Immediate action required.

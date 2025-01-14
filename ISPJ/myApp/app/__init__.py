@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from prometheus_client import Counter, generate_latest
 import os, csv
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -20,6 +21,11 @@ users = {
     'staff': {'password': generate_password_hash('staff123'), 'role': 'staff'},
     'patient': {'password': generate_password_hash('patient123'), 'role': 'patient'}
 }
+
+# Define counters for login attempts
+login_attempts = Counter('medsync_login_attempts_total', 'Total login attempts', ['status'])
+admin_views = Counter('medsync_admin_views_total', 'Admin page views', ['page'])
+document_actions = Counter('medsync_document_actions_total', 'Document operations', ['action'])
 
 class User(UserMixin):
     pass
@@ -110,13 +116,23 @@ def admin_login():
         username = request.form['username']
         password = request.form['password']
         if username == admin_username and password == admin_password:
+            # Increment successful login counter
+            login_attempts.labels(status='success').inc()
             return redirect(url_for('admin_dashboard'))
         else:
+            # Increment failed login counter
+            login_attempts.labels(status='failed').inc()
             flash('Invalid username or password.', 'error')
+    
+    # Increment page view counter
+    admin_views.labels(page='login').inc()
     return render_template('admin_login.html')
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
+    # increment dash view counter
+    admin_views.labels(page='dashboard').inc()
+
     # Sample data for User Login Activity
     login_dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
     login_counts = [50, 75, 60, 80, 90]
@@ -180,23 +196,24 @@ def admin_notif():
     return render_template('admin_notif.html', notifications=notifications)
 
 @app.route('/restrict_user/<int:user_id>', methods=['POST'])
-
 def restrict_user(user_id):
     return "User restricted"
 
 
 @app.route('/disable_user/<int:user_id>', methods=['POST'])
-
 def disable_user(user_id):
     return "User disabled"
 
 
 @app.route('/delete_user/<int:user_id>', methods=['POST'])
-
 def delete_user(user_id):
     return "User deleted"
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest()
 
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True)
+    app.run(host = '0.0.0.0', debug=True)
