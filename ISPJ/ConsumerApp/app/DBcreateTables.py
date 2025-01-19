@@ -1,12 +1,8 @@
 from sqlalchemy import Table, Column, Integer, String, Boolean, ForeignKey, Float, DateTime, text
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func
-from database import engine, Base
-import datetime
+from database import engine, Base, dbSession
 
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 class User(Base):
     __tablename__ = 'users'
@@ -50,8 +46,8 @@ class PatientRecords(Base):
 
 def addValues():
     newUser = User(uid = 'T0110907Z', username = 'LucianHo', password = 'P@ssw0rd')
-    session.add(newUser)
-    session.commit()
+    dbSession.add(newUser)
+    dbSession.commit()
 
 def createTables():
     try:
@@ -62,11 +58,11 @@ def createTables():
     except exec.SQLAlchemyError as e:
         print(f"Database connection failed: {e}")
 
-    session.close()
+    dbSession.close()
 
 def testConn():
     try:
-        users = session.query(User).all()
+        users = dbSession.query(User).all()
         for user in users:
             print(user)
 

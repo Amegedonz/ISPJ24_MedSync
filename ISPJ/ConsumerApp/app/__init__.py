@@ -1,45 +1,42 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os, limiter
+#databse Connection
+from database import engine, Base, dbSession
 
+from Forms.appForms import 
+
+#initialising app libraries
 app = Flask(__name__)
+
+#Security params
 bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Change this to a random secret key
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
+#Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+#Rate Limiter
 limiter = Limiter(
     get_remote_address, 
     app = app,
     storage_uri = "memory://"
 )
 
-# Placeholder user database
-users = {
-    'admin': {'password': generate_password_hash('admin123'), 'role': 'admin'},
-    'staff': {'password': generate_password_hash('staff123'), 'role': 'staff'},
-    'patient': {'password': generate_password_hash('patient123'), 'role': 'patient'}
-}
-
 
 class User(UserMixin):
     pass
 
 @login_manager.user_loader
-def load_user(username):
-    if username not in users:
-        return None
-    user = User()
-    user.id = username
-    return user
+def load_user(uid):
+    return dbSession.query(User).filter(User.uid == uid).first()
 
 @app.route('/')
 def home():
@@ -48,6 +45,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 @limiter.limit("15/hour;3/minute")
 def login():
+    form = LoginForm
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')

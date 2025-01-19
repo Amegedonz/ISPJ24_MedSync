@@ -24,3 +24,7 @@ with engine.connect() as conn:
         conn.execute(CreateSchema("ISPJ_DB"))
 
 Base = declarative_base(metadata=metadata)
+
+
+Session = sessionmaker(bind=engine)
+dbSession = Session()
