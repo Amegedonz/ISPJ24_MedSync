@@ -7,6 +7,8 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os, limiter
 
+#Databse Config and connection settings
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Change this to a random secret key

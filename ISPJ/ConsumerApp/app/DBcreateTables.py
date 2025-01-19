@@ -38,6 +38,8 @@ class PatientAssignment(Base):
 
     doctor_id = Column(String(7), ForeignKey('doctors.license_number'), primary_key=True)
     patient_id = Column(String(9), ForeignKey('users.uid'), primary_key=True)
+    assignmentDateTime = Column(DateTime(timezone=True), onupdate=func.now())
+    assignedBy = Column(String(50), nullable=False)
 
 class PatientRecords(Base):
     __tablename__ = 'patient_records'
