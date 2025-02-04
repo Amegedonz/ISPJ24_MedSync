@@ -1,18 +1,26 @@
+version: '3'
 
 services:
   prometheus:
     image: prom/prometheus:v2.26.0
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus  # Add persistent volume
     ports:
       - "9090:9090"
     extra_hosts:
-      - "host.docker.internal:host-gateway" 
+      - "host.docker.internal:host-gateway"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'  # Keep data for 15 days
+      - '--web.enable-lifecycle'
 
   grafana:
     image: grafana/grafana:latest
     volumes:
       - ./datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - grafana_data:/var/lib/grafana  # Add persistent volume
     ports:
       - "3000:3000"
     depends_on:
@@ -21,3 +29,6 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
 
+volumes:
+  prometheus_data:  # Define volumes
+  grafana_data:
