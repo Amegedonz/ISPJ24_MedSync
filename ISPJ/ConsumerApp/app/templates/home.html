@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}MedSync - Home{% endblock %}
+
+
+{% block content %}
+<div class="min-vh-100">
+<div class="container pt-5">
+    <h1 class="display-4">Welcome to MedSync</h1>
+    <p class="lead">A secure platform for healthcare practitioners to share medical documents with patients.</p>
+    <hr class="my-4">
+    <p>Streamline your medical document sharing process and improve patient care.</p>
+    <a class="btn btn-primary btn-lg" href="/register" role="button">Get Started</a>
+</div>
+
+<div class="container" >
+    <div class="col mt-5"></div>
+        <div class="col-md-4">
+            <h2>For Healthcare Providers</h2>
+            <p>Easily upload and manage patient documents, reports, and scans.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>For Patients</h2>
+            <p>Access your medical records securely and conveniently.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Secure &amp; Compliant</h2>
+            <p>Our platform adheres to strict security standards to protect your data.</p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
