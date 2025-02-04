@@ -31,43 +31,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
-    <div class="row">
-    <!-- User Login Activity Line Chart -->
-    <div class="col-md-4">
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="card-title">User Login Activity</h5>
-        </div>
-        <div class="card-body">
-            {{ login_activity_html | safe }}
-        </div>
-    </div>
-    </div>
-
-    <!-- Failed Login Attempts Bar Chart -->
-    <div class="col-md-4">
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="card-title">Failed Login Attempts</h5>
-        </div>
-        <div class="card-body">
-            {{ failed_logins_html | safe }}
-        </div>
-    </div>
-    </div>
-
-    <!-- Document Uploads and Downloads Area Chart -->
-    <div class="col-md-4">
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5 class="card-title">Document Uploads and Downloads</h5>
-        </div>
-        <div class="card-body">
-            {{ document_activity_html | safe }}
-        </div>
-    </div>
-    </div>
-</div>
+<div class="container-fluid">
+    <iframe src="http://localhost:3000/d/eec1lr504mjggd/admin-page-dashboard?orgId=1&from=2025-02-04T06:29:20.454Z&to=2025-02-04T12:29:20.454Z&timezone=browser&theme=light" style="height: 80vh; width: 80vw;">
+    </iframe>
 </div>
 {% endblock %}

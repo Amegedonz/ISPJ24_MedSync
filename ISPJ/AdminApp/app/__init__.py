@@ -39,6 +39,7 @@ def load_user(username):
 
 @app.route('/')
 def home():
+    admin_views.labels(page='admin_home').inc()
     return render_template('admin_login.html')
 
 
@@ -49,13 +50,19 @@ def admin_login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == admin_username and password == admin_password:
-            # Increment successful login counter
-            login_attempts.labels(status='success').inc()
-            return redirect(url_for('admin_dashboard'))
+        if username == admin_username:
+            password == admin_password
+            if password == admin_password:
+                # Increment successful login counter
+                login_attempts.labels(status='success').inc()
+                return redirect(url_for('admin_dashboard'))
+            else:
+                flash('Invalid username or password.', 'error')
+                login_attempts.labels(status='password_failed').inc()
+                return redirect(url_for('admin_login'))
         else:
             # Increment failed login counter
-            login_attempts.labels(status='failed').inc()
+            login_attempts.labels(status='username_failed').inc()
             flash('Invalid username or password.', 'error')
     
     # Increment page view counter
@@ -64,49 +71,45 @@ def admin_login():
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    # increment dash view counter
-    admin_views.labels(page='dashboard').inc()
+    # # increment dash view counter
 
-    # Sample data for User Login Activity
-    login_dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
-    login_counts = [50, 75, 60, 80, 90]
+    # # Sample data for User Login Activity
+    # login_dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
+    # login_counts = [50, 75, 60, 80, 90]
 
-    # Sample data for Failed Login Attempts
-    failed_login_periods = ['Week 1', 'Week 2', 'Week 3', 'Week 4']
-    failed_login_counts = [5, 7, 3, 9]
+    # # Sample data for Failed Login Attempts
+    # failed_login_periods = ['Week 1', 'Week 2', 'Week 3', 'Week 4']
+    # failed_login_counts = [5, 7, 3, 9]
     
-    # Sample data for Document Uploads and Downloads
-    dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
-    uploads = [20, 30, 25, 35, 45]
-    downloads = [15, 25, 20, 30, 40]
+    # # Sample data for Document Uploads and Downloads
+    # dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
+    # uploads = [20, 30, 25, 35, 45]
+    # downloads = [15, 25, 20, 30, 40]
 
-    # Create Plotly charts
-    login_activity_fig = go.Figure(data=[
-        go.Scatter(x=login_dates, y=login_counts, mode='lines+markers', name='Logins', line=dict(color='blue'))
-    ])
-    login_activity_fig.update_layout(title='User Login Activity Over Time', xaxis_title='Date', yaxis_title='Number of Logins')
+    # # Create Plotly charts
+    # login_activity_fig = go.Figure(data=[
+    #     go.Scatter(x=login_dates, y=login_counts, mode='lines+markers', name='Logins', line=dict(color='blue'))
+    # ])
+    # login_activity_fig.update_layout(title='User Login Activity Over Time', xaxis_title='Date', yaxis_title='Number of Logins')
 
-    failed_logins_fig = go.Figure(data=[
-        go.Bar(x=failed_login_periods, y=failed_login_counts, name='Failed Logins', marker=dict(color='red'))
-    ])
-    failed_logins_fig.update_layout(title='Failed Login Attempts by Week', xaxis_title='Week', yaxis_title='Number of Failed Attempts')
+    # failed_logins_fig = go.Figure(data=[
+    #     go.Bar(x=failed_login_periods, y=failed_login_counts, name='Failed Logins', marker=dict(color='red'))
+    # ])
+    # failed_logins_fig.update_layout(title='Failed Login Attempts by Week', xaxis_title='Week', yaxis_title='Number of Failed Attempts')
 
-    document_activity_fig = go.Figure(data=[
-        go.Scatter(x=dates, y=uploads, fill='tozeroy', mode='none', name='Uploads', fillcolor='rgba(0, 128, 0, 0.5)'),
-        go.Scatter(x=dates, y=downloads, fill='tonexty', mode='none', name='Downloads', fillcolor='rgba(0, 0, 255, 0.5)')
-    ])
-    document_activity_fig.update_layout(title='Document Uploads and Downloads Over Time', xaxis_title='Date', yaxis_title='Number of Documents')
+    # document_activity_fig = go.Figure(data=[
+    #     go.Scatter(x=dates, y=uploads, fill='tozeroy', mode='none', name='Uploads', fillcolor='rgba(0, 128, 0, 0.5)'),
+    #     go.Scatter(x=dates, y=downloads, fill='tonexty', mode='none', name='Downloads', fillcolor='rgba(0, 0, 255, 0.5)')
+    # ])
+    # document_activity_fig.update_layout(title='Document Uploads and Downloads Over Time', xaxis_title='Date', yaxis_title='Number of Documents')
 
-    # Convert charts to HTML
-    login_activity_html = pio.to_html(login_activity_fig, full_html=False)
-    failed_logins_html = pio.to_html(failed_logins_fig, full_html=False)
-    document_activity_html = pio.to_html(document_activity_fig, full_html=False)
+    # # Convert charts to HTML
+    # login_activity_html = pio.to_html(login_activity_fig, full_html=False)
+    # failed_logins_html = pio.to_html(failed_logins_fig, full_html=False)
+    # document_activity_html = pio.to_html(document_activity_fig, full_html=False)
 
     admin_views.labels(page='admin_dashboard').inc()
-    return render_template('admin_dashboard.html',
-                           login_activity_html=login_activity_html,
-                           failed_logins_html=failed_logins_html,
-                           document_activity_html=document_activity_html)
+    return render_template('admin_dashboard.html')
 
 @app.route('/admin_notif')
 def admin_notif():
