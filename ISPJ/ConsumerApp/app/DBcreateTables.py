@@ -12,6 +12,7 @@ class User(Base, UserMixin):
     password = Column(String(255), nullable=False)
     email = Column(String(100), unique=True)
     phoneNumber = Column(Integer(), unique=True)
+    twofa = Column(Boolean(), default=False)
     role = Column(String(50), nullable=False, default="Patient")
 
     doctor_profile = relationship("Doctor", back_populates="user", uselist=False)
