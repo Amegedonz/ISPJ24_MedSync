@@ -19,6 +19,9 @@
             <h1 style="text-align: center; color: #333; font-size: 1.875rem; margin-bottom: 2rem;">Upload Medical Document</h1>
 
             <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
                 <!-- Drop Zone -->
                 <div id="drop-zone" style="border: 2px dashed #007bff; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer; background-color: #f8f9fa; transition: all 0.2s ease;">
                     <div style="color: #007bff; font-size: 1.1rem; margin-bottom: 0.5rem;">📄 Drag and drop files here or click to select</div>
@@ -60,7 +63,7 @@
                 <!-- Action Buttons -->
                 <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
                     <button type="submit" style="padding: 0.75rem 2rem; background-color: #007bff; color: white; border: none; border-radius: 15px; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease;">Upload Document</button>
-                    <a href="/" style="padding: 0.75rem 2rem; background-color: #f0f0f0; color: #333; border: none; border-radius: 15px; text-decoration: none; font-size: 1rem; transition: all 0.2s ease;">Back to Home</a>
+                    <a href="/Landing" style="padding: 0.75rem 2rem; background-color: #f0f0f0; color: #333; border: none; border-radius: 15px; text-decoration: none; font-size: 1rem; transition: all 0.2s ease;">Back to Home</a>
                 </div>
             </form>
         </div>
