@@ -24,6 +24,7 @@ from Forms.appForms import LoginForm, RegistrationForm
 from prometheus_client import Counter, Gauge, Info, Histogram, Summary, generate_latest
 from prometheus_flask_exporter import PrometheusMetrics
 from log_config import logger
+
 #initialising app libraries
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -73,7 +74,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-# @limiter.limit("5 per minute")
+@limiter.limit("5 per minute")
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -93,14 +94,19 @@ def login():
                 return redirect(url_for("home"))
             
             else: 
-                # login failure log
-                logger.info("Login failed", extra={
+                # login fail log
+                logger.warning("Login failed", extra={
                     "ip": request.remote_addr,
                     "user": user.id,
                 })
                 flash("Wrong Username/Password.\n Please try again", 'danger')
 
         except Exception as e:
+            # login error log
+            logger.warning(f"Login Exception: {e}", extra={
+                "ip": request.remote_addr,
+                "user": user.id,
+            })
             flash(f"An error {e} occured. Please try again.", "Warning")
 
         finally:
@@ -125,6 +131,10 @@ def register():
         verify_response = requests.post(url=f'{RECAPTCHA_API_URL}?secret={RECAPTCHA_PRIVATE_KEY}&response={grequest}').json
         print(verify_response())
         if verify_response()['success'] == False:
+            # recaptcha error log
+            logger.warning("Registration invalid ReCAPTCHA", extra={
+                "ip": request.remote_addr,
+            })
             flash("Invalid reCAPTCHA")
             return render_template('register.html', form=form)
 
@@ -141,6 +151,11 @@ def register():
             if isinstance(new_user, User):
                 dbSession.add(new_user)
                 dbSession.commit()
+                # registration success log
+                logger.info("Registration success", extra={
+                    "ip": request.remote_addr,
+                    "user": new_user.id,
+                })
                 flash('Registration Successful!', "success")
                 return redirect(url_for('login'))
         else:
@@ -218,11 +233,36 @@ def not_found(e):
     consumer_errors.labels(error='404').inc()
     return render_template('error.html', error_code = 404, message = "Page not found. Sorry for the inconvenience caused")
 
+# @app.errorhandler(429)
+# def too_many_requests(e):
+#     logout_user()
+#     consumer_errors.labels(error='429').inc()
+#     return render_template('error.html', error_code = 429, message = "Too many requests. Please try again later")
+
 @app.errorhandler(429)
 def too_many_requests(e):
-    logout_user()
+    try:
+        # Rollback any pending transactions
+        dbSession.rollback()
+        
+        # Only attempt logout if user is logged in
+        if current_user.is_authenticated:
+            logout_user()
+        
+        flash('Too many attempts. Please try again later.', 'error')
+        
+    except Exception as ex:
+        # Ensure rollback happens even if logout fails
+        dbSession.rollback()
+        app.logger.error(f"Error in rate limit handler: {str(ex)}")
+        
+    finally:
+        # Ensure session is clean
+        dbSession.close()
+
     consumer_errors.labels(error='429').inc()
-    return render_template('error.html', error_code = 429, message = "Too many requests. Please try again later")
+    return render_template('login.html'), 429
+
 
 @app.errorhandler(500)
 def internal_error(e):
@@ -247,4 +287,4 @@ def gateway_timeout(e):
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True)
+    app.run(debug=True, port=5002)
