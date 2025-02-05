@@ -1,8 +1,17 @@
+#SQLalchemy requirements to build models
 from sqlalchemy import Table, Column, Integer, String, Boolean, ForeignKey, Float, DateTime, text
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func
+ 
+
+#DB connection
 from database import engine, Base, dbSession
+
+#Login lib requirements
 from flask_login import UserMixin
+
+#secret generation
+import pyotp
 
 class User(Base, UserMixin):
     __tablename__ = 'users'
@@ -12,9 +21,9 @@ class User(Base, UserMixin):
     password = Column(String(255), nullable=False)
     email = Column(String(100), unique=True)
     phoneNumber = Column(Integer(), unique=True)
-    twofa = Column(Boolean(), default=False)
     role = Column(String(50), nullable=False, default="Patient")
 
+    twofa = relationship("Twofa", back_populates="user", uselist=False, cascade="all, delete-orphan")
     doctor_profile = relationship("Doctor", back_populates="user", uselist=False)
     doctors = relationship("PatientAssignment", back_populates="patient")
 
@@ -22,9 +31,8 @@ class User(Base, UserMixin):
         return f"<User(id = {self.id}, username = {self.username})>"
 
     def add_doctor(self, license_number, specialisation, facility):
-        # Create the associated doctor profile
         doctor = Doctor(
-            id=self.id,  # Link the doctor to this user
+            id=self.id,  # Uses the shared ID to identify and link
             license_number=license_number,
             specialisation=specialisation,
             facility=facility
@@ -33,6 +41,15 @@ class User(Base, UserMixin):
         self.role = "Doctor"  
         return doctor
     
+class Twofa(Base):
+    __tablename__ = 'twofa'
+
+    id = Column(String(9), ForeignKey('users.id'), primary_key=True, unique=True)
+    user_secret = Column(String(32), unique=True, nullable=False, default=lambda: pyotp.random_base32())
+    twofa_enabled = Column(Boolean(), default=False)
+
+    user = relationship("User", back_populates='twofa')
+
 class Doctor(Base):
     __tablename__ = 'doctors'
 
@@ -92,6 +109,7 @@ def clearTableData():
     print("Contents deleted!")
     dbSession.commit()
     dbSession.close()
+
 
 def testConn():
     try:
