@@ -23,6 +23,7 @@ with engine.connect() as conn:
     if not conn.dialect.has_schema(conn, "ISPJ_DB"): 
         conn.execute(CreateSchema("ISPJ_DB"))
 
+
 Base = declarative_base(metadata=metadata)
 
 
