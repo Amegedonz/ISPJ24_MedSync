@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}MedSync - Admin Notifications{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">MedSync Admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="{{ url_for('admin_notif') }}">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_login') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">System Alert Logs</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Level</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notification in notifications %}
+                    <tr class="{% if notification.level == 'CRITICAL' %}table-danger{% else %}table-warning{% endif %}">
+                        <td>{{ notification.datetime }}</td>
+                        <td>
+                            <span class="badge {% if notification.level == 'CRITICAL' %}bg-danger{% else %}bg-warning{% endif %}">
+                                {{ notification.level }}
+                            </span>
+                        </td>
+                        <td>{{ notification.description }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form action="{{ url_for('restrict_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <button type="submit" class="dropdown-item text-warning">
+                                                <i class="bi bi-exclamation-triangle"></i> Restrict Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="{{ url_for('disable_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <button type="submit" class="dropdown-item text-secondary">
+                                                <i class="bi bi-pause-circle"></i> Disable Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="{{ url_for('delete_user', user_id=notification.user_id) }}" method="POST" class="px-2">
+                                            <button type="submit" class="dropdown-item text-danger" 
+                                                    onclick="return confirm('Are you sure you want to delete this account?')">
+                                                <i class="bi bi-trash"></i> Delete Account
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -26,6 +26,10 @@ from Forms.appForms import LoginForm, RegistrationForm, TwoFactorForm
 #Wrappers
 from functools import wraps
 
+# Monitoring
+from prometheus_client import Counter, Gauge, Info, Histogram, Summary, generate_latest
+from prometheus_flask_exporter import PrometheusMetrics
+from log_config import logger
 
 #initialising app libraries
 app = Flask(__name__)
@@ -72,15 +76,26 @@ limiter = Limiter(
     storage_uri = "memory://"
 )
 
+
+# Prometheus Counters
+consumer_login_attempts = Counter('consumer_login_attempts_total', 'Total login attempts', ['status'])
+consumer_logout_attempts = Counter('consumer_logout_attempts_total', 'Total logout attempts', ['status'])
+consumer_register_attempts = Counter('consumer_register_attempts_total', 'Total register attempts', ['status'])
+consumer_views = Counter('consumer_page_views_total', 'Page views', ['page'])
+consumer_errors = Counter('consumer_errors_total', 'Errors', ['error'])
+
+
 @login_manager.user_loader
 def load_user(id):
     return dbSession.query(User).filter(User.id == id).first()
 
 @app.route('/')
 def home():
+    consumer_views.labels(page='home').inc()
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
+# @limiter.limit("5 per minute")
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -105,6 +120,11 @@ def login():
                     abort(500)
             
             else: 
+                # login failure log
+                logger.info("Login failed", extra={
+                    "ip": request.remote_addr,
+                    "user": user.id,
+                })
                 flash("Wrong Username/Password.\n Please try again", 'danger')
 
         except Exception as e:
@@ -112,10 +132,19 @@ def login():
 
         finally:
             dbSession.close()
-
+    consumer_views.labels(page='login').inc()
     return render_template('login.html', form=form)
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Successfully Logged Out", "Success")
+    consumer_views.labels(page='logout').inc()
+    return redirect(url_for('home'))
+
 @app.route('/register', methods=['GET', 'POST'])
+# @limiter.limit("5 per minute")
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -148,11 +177,13 @@ def register():
             return redirect(url_for('login'))
 
     dbSession.close()
+    consumer_views.labels(page='register').inc()
     return render_template('register.html', form=form)
 
 @app.route('/patient_profile', methods=['GET', 'POST'])
 @roles_required("Patient")
 def patient_profile():
+    consumer_views.labels(page='patient_profile').inc()
     return render_template('patient_profile.html')
 
 @app.route('/createUsers')
@@ -221,6 +252,10 @@ def verify2FA():
         if totp.verify(form.data['otp']):
             if twofaCheck.twofa_enabled:
                 flash("2FA verification successful. You are logged in!", "success")
+                logger.info("Login success", extra={
+                        "ip": request.remote_addr,
+                        "user": current_user.id,
+                    })
                 return redirect(url_for('home'))
             else:
                 try:
@@ -274,6 +309,52 @@ def logout():
     logout_user()
     flash("Successfully Logged Out", "success")
     return redirect(url_for('home'))
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest()
+
+# error handlers
+@app.errorhandler(401)
+def not_authorised(e):
+    consumer_errors.labels(error='401').inc()
+    return render_template('error.html', error_code = 401, message = "Please log in to view this page")
+
+@app.errorhandler(403)
+def forbidden(e):
+    consumer_errors.labels(error='403').inc()
+    return render_template('error.html', error_code = 403, message = "You don't have the required permissions to access this page")
+
+@app.errorhandler(404)
+def not_found(e):
+    consumer_errors.labels(error='404').inc()
+    return render_template('error.html', error_code = 404, message = "Page not found. Sorry for the inconvenience caused")
+
+@app.errorhandler(429)
+def too_many_requests(e):
+    logout_user()
+    consumer_errors.labels(error='429').inc()
+    return render_template('error.html', error_code = 429, message = "Too many requests. Please try again later")
+
+@app.errorhandler(500)
+def internal_error(e):
+    consumer_errors.labels(error='500').inc()
+    return render_template('error.html', error_code = 500, message = "Internal server error")
+
+@app.errorhandler(502)
+def bad_gateway(e):
+    consumer_errors.labels(error='502').inc()
+    return render_template('error.html', error_code = 502, message = "Bad gateway")
+
+@app.errorhandler(503)
+def service_unavailable(e):
+    consumer_errors.labels(error='503').inc()
+    return render_template('error.html', error_code = 503, message = "Service unavailable")
+
+@app.errorhandler(504)
+def gateway_timeout(e):
+    consumer_errors.labels(error='504').inc()
+    return render_template('error.html', error_code = 504, message = "Gateway timeout")
 
 if __name__ == '__main__':
     app.run(debug=True)
