@@ -139,7 +139,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("Successfully Logged Out", "Success")
+    flash("Successfully Logged Out", "success")
     consumer_views.labels(page='logout').inc()
     return redirect(url_for('home'))
 
@@ -282,13 +282,12 @@ def verify2FA():
 def doctor_assignment():
     NRIC = request.args.get('NRIC') 
 
-    user = dbSession.query(User).filter(User.id == NRIC).first()  # Find the first user with this username
+    user = dbSession.query(User).filter(User.id == NRIC).first()
 
     if user:
         print(user.username)
         return render_template('doctor_assignment.html', user=user)
     else:
-        # If no user is found, pass None (or null) to the template
         return render_template('doctor_assignment.html', user=None)
 
 @app.route('/confirm_patient/<NRIC>', methods=['GET', 'POST'])
@@ -303,12 +302,6 @@ def confirm_patient(NRIC):
         flash("Successfully assigned patient", "success")
         return redirect(url_for('home'))
 
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash("Successfully Logged Out", "success")
-    return redirect(url_for('home'))
 
 @app.route('/metrics')
 def metrics():
