@@ -105,3 +105,15 @@
 {"asctime": "2025-02-06 05:33:04,740", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "T0110907Z"}
 {"asctime": "2025-02-06 05:33:04,741", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:33:04] \"\u001b[32mPOST /verify2FA HTTP/1.1\u001b[0m\" 302 -"}
 {"asctime": "2025-02-06 05:33:05,048", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:33:05] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:49:28,927", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-06 05:49:28,928", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-06 05:49:28,931", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:49:38,322", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:49:38,332", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}
+{"asctime": "2025-02-06 05:49:38,627", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:38] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-06 05:49:38,659", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:38] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:49:40,382", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:40] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:50:12,077", "levelname": "INFO", "message": " * Detected change in '/Users/lucian/Desktop/Github/ISPJ/ConsumerApp/app/__init__.py', reloading"}
+{"asctime": "2025-02-06 05:50:12,230", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:50:22,551", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:50:22,557", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}

@@ -26,7 +26,7 @@ from io import BytesIO
 
 #databse Connection
 from database import engine, Base, dbSession
-from DBcreateTables import User, Twofa, Doctor, PatientAssignment, deleteTables, createTables
+from DBcreateTables import User, Twofa, Doctor, PatientAssignment, delete_tables, create_tables
 
 #WTF
 from flask_wtf.csrf import CSRFProtect
