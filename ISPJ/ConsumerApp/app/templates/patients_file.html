@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Files</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .file-item {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #28a745;
+        }
+
+        .back-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Patient Files</h1>
+    <input type="text" id="nric-search" placeholder="Search by Patient NRIC..." oninput="searchFiles()">
+    <ul id="file-list" class="file-list">
+        {% for file in files %}
+            <li class="file-item">
+                <strong>{{ file.filename }}</strong><br>
+                Patient NRIC: {{ file.patient_nric }}<br>
+                Date: {{ file.date }}<br>
+                <a href="/download/{{ file.filename }}">Download</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/" class="back-button">
+        <button>Back to Home</button>
+    </a>
+</div>
+
+<script>
+    function searchFiles() {
+        const searchQuery = document.getElementById('nric-search').value.toUpperCase();
+        const fileItems = document.querySelectorAll('.file-item');
+
+        fileItems.forEach(item => {
+            const nricText = item.innerText.toUpperCase();
+            item.style.display = nricText.includes(searchQuery) ? 'block' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
