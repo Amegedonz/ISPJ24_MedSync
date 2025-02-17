@@ -26,7 +26,11 @@ from io import BytesIO
 
 #databse Connection
 from database import engine, Base, dbSession
+<<<<<<< HEAD
 from DBcreateTables import User, Twofa, Doctor, PatientAssignment, delete_tables, create_tables
+=======
+from DBcreateTables import User, Doctor, PatientAssignment, delete_tables, create_tables
+>>>>>>> 1dfd8814bce6ad80925851b831ffc69a2826d799
 
 #WTF
 from flask_wtf.csrf import CSRFProtect
@@ -40,11 +44,20 @@ from prometheus_client import Counter, Gauge, Info, Histogram, Summary, generate
 from prometheus_flask_exporter import PrometheusMetrics
 from log_config import logger
 
+#Wrappers
+from functools import wraps
+
+# Monitoring
+from prometheus_client import Counter, Gauge, Info, Histogram, Summary, generate_latest
+from prometheus_flask_exporter import PrometheusMetrics
+#from log_config import logger
+
 #initialising app libraries
 app = Flask(__name__)
 app.config.from_object(Config)
 SECRET_KEY = app.config['SECRET_KEY']
 APP_NAME = app.config['APP_NAME']
+
 
 
 #WTF CSRF Tokens
@@ -563,8 +576,41 @@ def add_watermark(input_pdf_path, output_pdf_path, watermark_text):
     with open(output_pdf_path, "wb") as output_file:
         output_pdf.write(output_file)
 
+
+@app.route('/view/<filename>')
+def view_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    if not os.path.exists(file_path):
+        flash("File not found!")
+        return redirect(url_for('list_files'))
+
+    # Check if the file is a PDF
+    is_pdf = filename.lower().endswith('.pdf')
+    content = None
+
+    # For text files, read and display the content
+    if not is_pdf:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+        except Exception as e:
+            flash("Unable to read the file content.")
+            content = None
+
+    return render_template(
+        'view.html',
+        filename=filename,
+        is_pdf=is_pdf,
+        content=content
+    )
+
 # Ensure tables exist at runtime
 Base.metadata.create_all(engine)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(debug=True)
+=======
+    app.run(debug=True , port=5002)
+>>>>>>> 1dfd8814bce6ad80925851b831ffc69a2826d799
