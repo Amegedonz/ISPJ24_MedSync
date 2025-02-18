@@ -111,27 +111,27 @@ def admin_dashboard():
     admin_views.labels(page='admin_dashboard').inc()
     return render_template('admin_dashboard.html')
 
-@app.route('/admin_notif')
-def admin_notif():
-    notifications = []
-    try:
-        with open('log.csv', 'r', encoding='utf-8') as file:
-            csv_reader = csv.DictReader(file)
-            for row in csv_reader:
-                if row['levelname'] in ['ERROR', 'CRITICAL']:
-                    notifications.append({
-                        'datetime': row['asctime'],  # Assuming 'asctime' is the first column
-                        'description': row['message'],  # Assuming 'message' is the second column
-                        'level': row['levelname'],  # Assuming 'levelname' is the third column
-                        'user_id': '12'  # Assuming 'user_id' is a field in the CSV
-                    })
-                print(notifications)
-    except FileNotFoundError:
-        flash('No logs found', 'warning')
-        notifications = []
+# @app.route('/admin_notif')
+# def admin_notif():
+#     notifications = []
+#     try:
+#         with open('log.csv', 'r', encoding='utf-8') as file:
+#             csv_reader = csv.DictReader(file)
+#             for row in csv_reader:
+#                 if row['levelname'] in ['ERROR', 'CRITICAL']:
+#                     notifications.append({
+#                         'datetime': row['asctime'],  # Assuming 'asctime' is the first column
+#                         'description': row['message'],  # Assuming 'message' is the second column
+#                         'level': row['levelname'],  # Assuming 'levelname' is the third column
+#                         'user_id': '12'  # Assuming 'user_id' is a field in the CSV
+#                     })
+#                 print(notifications)
+#     except FileNotFoundError:
+#         flash('No logs found', 'warning')
+#         notifications = []
         
-    admin_views.labels(page='admin_notification').inc()
-    return render_template('admin_notif.html', notifications=notifications)
+#     admin_views.labels(page='admin_notification').inc()
+#     return render_template('admin_notif.html', notifications=notifications)
 
 @app.route('/restrict_user/<int:user_id>', methods=['POST'])
 def restrict_user(user_id):
@@ -154,4 +154,4 @@ def metrics():
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)

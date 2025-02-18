@@ -74,7 +74,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-@limiter.limit("5 per minute")
+@limiter.limit("3 per minute")
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -86,6 +86,8 @@ def login():
             if isinstance(user, User) and bcrypt.check_password_hash(user.password, form.password.data):
                 remember = form.remember.data
                 login_user(user, remember=remember)
+                # login success counter
+                consumer_login_attempts.labels(status='success').inc()
                 # login success log
                 logger.info("Login success", extra={
                     "ip": request.remote_addr,
@@ -94,6 +96,8 @@ def login():
                 return redirect(url_for("home"))
             
             else: 
+                # login success counter
+                consumer_login_attempts.labels(status='failed').inc()
                 # login fail log
                 logger.warning("Login failed", extra={
                     "ip": request.remote_addr,
@@ -102,8 +106,10 @@ def login():
                 flash("Wrong Username/Password.\n Please try again", 'danger')
 
         except Exception as e:
+            # login error counter
+            consumer_errors.labels(f"login {e}").inc()
             # login error log
-            logger.warning(f"Login Exception: {e}", extra={
+            logger.error(f"Login Exception: {e}", extra={
                 "ip": request.remote_addr,
                 "user": user.id,
             })
@@ -123,7 +129,7 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'])
-# @limiter.limit("5 per minute")
+@limiter.limit("5 per minute")
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -132,12 +138,13 @@ def register():
         print(verify_response())
         if verify_response()['success'] == False:
             # recaptcha error log
-            logger.warning("Registration invalid ReCAPTCHA", extra={
+            logger.error("Registration invalid ReCAPTCHA", extra={
                 "ip": request.remote_addr,
             })
             flash("Invalid reCAPTCHA")
             return render_template('register.html', form=form)
 
+        
         user = dbSession.query(User).filter(User.id == form.id.data).first()
         if not user:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -233,36 +240,25 @@ def not_found(e):
     consumer_errors.labels(error='404').inc()
     return render_template('error.html', error_code = 404, message = "Page not found. Sorry for the inconvenience caused")
 
-# @app.errorhandler(429)
-# def too_many_requests(e):
-#     logout_user()
-#     consumer_errors.labels(error='429').inc()
-#     return render_template('error.html', error_code = 429, message = "Too many requests. Please try again later")
-
 @app.errorhandler(429)
 def too_many_requests(e):
-    try:
-        # Rollback any pending transactions
-        dbSession.rollback()
-        
-        # Only attempt logout if user is logged in
-        if current_user.is_authenticated:
-            logout_user()
-        
-        flash('Too many attempts. Please try again later.', 'error')
-        
-    except Exception as ex:
-        # Ensure rollback happens even if logout fails
-        dbSession.rollback()
-        app.logger.error(f"Error in rate limit handler: {str(ex)}")
-        
-    finally:
-        # Ensure session is clean
-        dbSession.close()
-
-    consumer_errors.labels(error='429').inc()
-    return render_template('login.html'), 429
-
+    # Import form here to avoid circular imports
+    from Forms.appForms import LoginForm
+    
+    # Log rate limit exceeded
+    logger.warning("Rate limit exceeded", extra={
+        "ip": request.remote_addr,
+        "endpoint": request.endpoint
+    })
+    
+    # Track rate limit errors
+    consumer_errors.labels(error='rate_limit').inc()
+    
+    # Create form instance
+    form = LoginForm()
+    
+    # Render login page with form and 429 status
+    return render_template('error.html', form=form, error_code = 429, message = "Too many requests. Please try again later")    
 
 @app.errorhandler(500)
 def internal_error(e):
@@ -287,4 +283,4 @@ def gateway_timeout(e):
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5001)
