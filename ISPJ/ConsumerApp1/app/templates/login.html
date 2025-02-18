@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "includes/_formHelper.html" import render_field %}
+
+{% block title %}MedSync - Login{% endblock %}
+
+
+{% block content %}
+    <!--REcapthca Key-->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcjeMwqAAAAAN3X8z-Vs6-NLorF0v9bisRyuoc7"></script>
+
+
+<h3 class="display-6 p-4 text-center">Login Page</h3>
+<script>
+  function onSubmit(token) {
+    document.getElementById("login_form").submit();
+  }
+</script>
+<form id="login_form" method="POST">
+  {{ form.hidden_tag() }}
+
+  <div class="bg-body rounded container shadow-sm" style="width: 30%; height: 60%;">
+    <br>
+    <div class="form-group p-3">
+      {{ render_field(form.id, class="form-control") }}
+    </div>
+
+    <div class="form-group p-3">
+      {{ render_field(form.password, class="form-control", placeholder="Password") }}
+    </div>
+
+    <div class="form-group p-3">
+      {{ render_field(form.remember, class="form-checkbox") }}
+    </div>
+
+    <p class="text-center p-2 mt-2">Not a member? <a href="/register">Sign up now</a></p>
+
+    <button class="g-recaptcha container-fluid text-center p-3 btn btn-primary"
+    data-sitekey="6LcjeMwqAAAAAN3X8z-Vs6-NLorF0v9bisRyuoc7"
+    data-callback='onSubmit'
+    data-action='submit'>
+Login
+</button>
+  
+</form>
+</div>
+
+{% endblock %}

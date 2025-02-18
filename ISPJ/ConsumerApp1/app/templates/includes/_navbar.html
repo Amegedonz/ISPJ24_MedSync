@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+    <div class="container">
+        {% if current_user.role == 'Doctor' %}
+            <a class="navbar-brand" href="{{ url_for('landing') }}">MedSync</a>
+
+        {% else %}
+            <a class="navbar-brand" href="/">MedSync</a>
+
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                
+                {% if current_user.is_authenticated %}
+                    {% if current_user.role == 'Patient' %}
+                        <!-- Patient Navbar -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('list_files') }}">My Documents</a>
+                        </li>
+                
+ 
+                    {% elif current_user.role == 'Doctor' %}
+                        <!-- Doctor Navbar -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('upload') }}">Upload Documents</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('doctor_assignment') }}">Assign Patients</a>
+                        </li>
+
+                    {% endif %}
+ 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+ 
+                {% else %}
+                    <!-- Public Navbar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+ </nav>
+ 
