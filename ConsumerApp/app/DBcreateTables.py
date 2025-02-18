@@ -74,21 +74,12 @@ class PatientAssignment(Base):
     doctor = relationship("Doctor", back_populates="patients")
     patient = relationship("User", back_populates="doctors")
 
-class PatientRecords(Base):
-    __tablename__ = 'patient_records'
-
-    record_id = Column(Integer, primary_key=True)
-    patient_id = Column(String(9), ForeignKey('users.id'))
-    record_data = Column(String(255))
-    record_time = Column(DateTime(timezone=True), onupdate=func.now())
-    attending = Column(String(7), ForeignKey('doctors.license_number'))
-
 class File(Base):
     __tablename__ = 'files'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     filename = Column(String(255), nullable=False)
-    file_path = Column(String(255), nullable=False)  # Store the file path
+    file_path = Column(String(255), nullable=False)  
     name = Column(String(255), nullable=False)
     license_no = Column(String(100), nullable=False)
     date = Column(DateTime(timezone=True), nullable=False)
@@ -96,11 +87,6 @@ class File(Base):
     facility = Column(String(255), nullable=False)
     patient_nric = Column(String(50), nullable=False)
     type = Column(String(100), nullable=False)
-
-def add_values():
-    newUser = User(id='T0110907Z', username='LucianHo', password='P@ssw0rd')
-    dbSession.add(newUser)
-    dbSession.commit()
 
 def create_tables():
     try:
@@ -124,15 +110,7 @@ def clear_table_data():
     dbSession.commit()
     dbSession.close()
 
-def test_conn():
-    try:
-        users = dbSession.query(User).all()
-        for user in users:
-            print(user)
-    except SQLAlchemyError as e:
-        print(f"SQLAlchemy error: {e}")
 
-# Ensure tables exist at runtime
 Base.metadata.create_all(engine)
 
 def main():

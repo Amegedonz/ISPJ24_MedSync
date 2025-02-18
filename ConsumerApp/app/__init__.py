@@ -117,7 +117,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-# @limiter.limit("3 per minute")
+@limiter.limit("3 per minute")
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():

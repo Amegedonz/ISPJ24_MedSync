@@ -198,3 +198,6 @@
 {"asctime": "2025-02-18 14:52:03,571", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:03] \"GET /register HTTP/1.1\" 200 -"}
 {"asctime": "2025-02-18 14:52:03,584", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:03] \"\u001b[36mGET /static/error_img.png HTTP/1.1\u001b[0m\" 304 -"}
 {"asctime": "2025-02-18 14:52:16,414", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:16] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 15:15:04,288", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-18 15:15:04,297", "levelname": "INFO", "message": " * Debugger PIN: 598-696-583"}
+{"asctime": "2025-02-18 15:16:04,438", "levelname": "INFO", "message": " * Detected change in '/Users/lucian/Desktop/Github/ISPJ/ConsumerApp/app/DBcreateTables.py', reloading"}
