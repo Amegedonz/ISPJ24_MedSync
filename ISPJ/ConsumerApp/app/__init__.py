@@ -608,9 +608,7 @@ def view_file(filename):
 # Ensure tables exist at runtime
 Base.metadata.create_all(engine)
 
+#test
+
 if __name__ == '__main__':
-<<<<<<< HEAD
-    app.run(debug=True)
-=======
     app.run(debug=True , port=5002)
->>>>>>> 1dfd8814bce6ad80925851b831ffc69a2826d799
