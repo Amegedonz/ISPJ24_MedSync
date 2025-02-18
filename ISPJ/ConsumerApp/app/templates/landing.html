@@ -1,3 +1,6 @@
+{% extends 'base.html'%}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,28 +179,21 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">MedSync</div>
-        <nav class="nav-links">
-            <a href="#" class="nav-link">About Us</a>
-            <a href="#" class="nav-link">Logout</a>
-        </nav>
-    </header>
-
+    
     <main class="main">
         <div class="welcome">
-            <h1>Welcome! Miss Zoe</h1>
+            <h1>Welcome! Dr {{current_user.username}}</h1>
             <div class="profile">
                 <div class="avatar">DR</div>
                 <div class="profile-info">
-                    <div class="profile-id">1233456P</div>
-                    <div class="profile-name">Zoe Farrell</div>
+                    <div class="profile-id">{{current_user.id}}</div>
+                    <div class="profile-name">{{current_user.username}}</div>
                 </div>
             </div>
         </div>
 
         <div class="actions">
-            <a href="{{ url_for('upload_page') }}" class="action-button">
+            <a href="{{ url_for('upload') }}" class="action-button">
                 <div class="action-icon">
                     <i class="fas fa-upload"></i>
                 </div>
@@ -214,3 +210,5 @@
     </main>
 </body>
 </html>
+
+{% endblock %}

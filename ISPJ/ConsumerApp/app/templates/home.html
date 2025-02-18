@@ -4,10 +4,21 @@
 
 
 {% block content %}
+{% if current_user.is_authenticated %}
+<div class="min-vh-100">
+    <div class="container pt-5">
+        <h1 class="display-4 text-center">Welcome to MedSync</h1>
+        <h1 class="display-3 text-center" style="padding: 30px;">{{current_user.username}}</h1>
+        <p class="lead text-center">A secure platform for healthcare practitioners to share medical documents with patients.</p>
+        <hr class="my-4">
+</div>
+</div>
+
+{% else %}
 <div class="min-vh-100">
 <div class="container pt-5">
-    <h1 class="display-4">Welcome to MedSync</h1>
-    <p class="lead">A secure platform for healthcare practitioners to share medical documents with patients.</p>
+    <h1 class="display-4 text-center">Welcome to MedSync</h1>
+    <p class="lead text-center">A secure platform for healthcare practitioners to share medical documents with patients.</p>
     <hr class="my-4">
     <p>Streamline your medical document sharing process and improve patient care.</p>
     <a class="btn btn-primary btn-lg" href="/register" role="button">Get Started</a>
@@ -30,4 +41,5 @@
     </div>
 </div>
 </div>
+{% endif %}
 {% endblock %}
