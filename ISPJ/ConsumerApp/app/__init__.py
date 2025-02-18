@@ -74,7 +74,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-@limiter.limit("3 per minute")
+# @limiter.limit("3 per minute")
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -85,6 +85,15 @@ def login():
             user = dbSession.query(User).filter(User.id == form.id.data).first()
             if isinstance(user, User) and bcrypt.check_password_hash(user.password, form.password.data):
                 remember = form.remember.data
+                # Add active status check
+                if not user.is_active:
+                    logger.warning("Deactivated account login attempt", extra={
+                        "ip": request.remote_addr,
+                        "user": user.id,
+                    })
+                    flash('Account is deactivated. Please contact administrator.', 'danger')
+                    return render_template('login.html', form=form)
+                
                 login_user(user, remember=remember)
                 # login success counter
                 consumer_login_attempts.labels(status='success').inc()
