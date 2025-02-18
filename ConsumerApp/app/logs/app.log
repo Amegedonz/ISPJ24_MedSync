@@ -1,0 +1,200 @@
+{"asctime": "2025-02-05 21:05:12,392", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-05 21:05:12,392", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-05 21:05:12,393", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-05 21:05:17,915", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-05 21:05:17,926", "levelname": "INFO", "message": " * Debugger PIN: 706-326-523"}
+{"asctime": "2025-02-05 21:05:17,967", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:22,378", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:27,377", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:32,020", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:32] \"GET /login?next=/patient_profile HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:32,224", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:32] \"GET /favicon.ico HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:32,377", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:37,377", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:37,761", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:37] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:42,376", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:47,377", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:47] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:52,376", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:52] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:05:57,375", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:05:57] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:02,375", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:02] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:07,375", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:07] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:12,374", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:12] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:17,374", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:20,414", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:20] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:22,374", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:25,674", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "T0110907Z"}
+{"asctime": "2025-02-05 21:06:26,348", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:26] \"POST /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:26,498", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:26] \"GET /favicon.ico HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:27,374", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:32,373", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:37,373", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:42,373", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:47,373", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:47] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:52,373", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:06:52] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:06:53,603", "levelname": "INFO", "message": " * Detected change in 'c:\\\\Users\\\\kohka\\\\Documents\\\\GitHub\\\\ISPJ24\\\\ISPJ\\\\ConsumerApp\\\\app\\\\__init__.py', reloading"}
+{"asctime": "2025-02-05 21:06:53,766", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-05 21:07:04,423", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-05 21:07:04,428", "levelname": "INFO", "message": " * Debugger PIN: 706-326-523"}
+{"asctime": "2025-02-05 21:07:04,471", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:04] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:04,475", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:04] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:05,394", "levelname": "INFO", "message": "Login failed", "ip": "127.0.0.1", "user": "T0110907Z"}
+{"asctime": "2025-02-05 21:07:06,018", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:06] \"POST /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:06,162", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:06] \"GET /favicon.ico HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:07,371", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:07] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:10,750", "levelname": "INFO", "message": "Login failed", "ip": "127.0.0.1", "user": "T0110907Z"}
+{"asctime": "2025-02-05 21:07:11,353", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:11] \"POST /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:11,502", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:11] \"GET /favicon.ico HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:12,372", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:12] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:17,372", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:22,370", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:27,370", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:32,370", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:37,370", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:42,369", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:47,369", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:47] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:52,368", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:52] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:07:57,368", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:07:57] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:02,368", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:02] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:07,367", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:07] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:12,368", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:12] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:17,368", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:22,366", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:27,367", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:32,367", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:37,365", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:42,366", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:47,365", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:47] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:52,365", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:52] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:08:57,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:08:57] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:02,365", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:02] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:07,365", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:07] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:12,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:12] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:17,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:22,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:27,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:32,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:37,363", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:42,362", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:47,363", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:47] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:52,362", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:52] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:09:57,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:09:57] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:02,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:02] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:07,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:07] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:12,362", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:12] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:17,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:17] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:22,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:22] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:27,361", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:27] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:32,360", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:32] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:37,359", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:37] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-05 21:10:42,364", "levelname": "INFO", "message": "127.0.0.1 - - [05/Feb/2025 21:10:42] \"GET /metrics HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:32:14,769", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-06 05:32:14,778", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-06 05:32:14,779", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:32:19,134", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:32:19,141", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}
+{"asctime": "2025-02-06 05:32:33,709", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-06 05:32:33,709", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-06 05:32:33,710", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:32:38,252", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:32:38,257", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}
+{"asctime": "2025-02-06 05:32:38,651", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:38] \"GET /login?next=/logout HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:32:42,292", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:42] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-06 05:32:42,314", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:42] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:32:44,627", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:44] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:32:51,840", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:51] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-06 05:32:52,431", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:32:52] \"GET /verify2FA HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:33:04,740", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "T0110907Z"}
+{"asctime": "2025-02-06 05:33:04,741", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:33:04] \"\u001b[32mPOST /verify2FA HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-06 05:33:05,048", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:33:05] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:49:28,927", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-06 05:49:28,928", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-06 05:49:28,931", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:49:38,322", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:49:38,332", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}
+{"asctime": "2025-02-06 05:49:38,627", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:38] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-06 05:49:38,659", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:38] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:49:40,382", "levelname": "INFO", "message": "127.0.0.1 - - [06/Feb/2025 05:49:40] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-06 05:50:12,077", "levelname": "INFO", "message": " * Detected change in '/Users/lucian/Desktop/Github/ISPJ/ConsumerApp/app/__init__.py', reloading"}
+{"asctime": "2025-02-06 05:50:12,230", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-06 05:50:22,551", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-06 05:50:22,557", "levelname": "INFO", "message": " * Debugger PIN: 864-992-630"}
+{"asctime": "2025-02-18 14:34:41,566", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-02-18 14:34:41,567", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-02-18 14:34:41,568", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-02-18 14:34:56,980", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-02-18 14:34:57,012", "levelname": "INFO", "message": " * Debugger PIN: 598-696-583"}
+{"asctime": "2025-02-18 14:34:57,377", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:34:57] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:35:05,678", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:35:05] \"GET /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:35:08,252", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:35:08] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:35:11,024", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:35:11] \"GET /files HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:00,678", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:00] \"\u001b[35m\u001b[1mGET /files HTTP/1.1\u001b[0m\" 500 -"}
+{"asctime": "2025-02-18 14:47:00,691", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:00] \"\u001b[35m\u001b[1mGET / HTTP/1.1\u001b[0m\" 500 -"}
+{"asctime": "2025-02-18 14:47:00,771", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:00] \"GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:00,771", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:00] \"GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:00,796", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:00] \"GET /?__debugger__=yes&cmd=resource&f=console.png&s=iD3L1JyyQRENDBJg8cln HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:08,969", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:08] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:47:08,993", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:08] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:11,785", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:11] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:22,023", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:22] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:47:22,588", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:22] \"GET /verify2FA HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:45,421", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "S1234567A"}
+{"asctime": "2025-02-18 14:47:45,422", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:45] \"\u001b[32mPOST /verify2FA HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:47:45,708", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:45] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:47:49,925", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:47:49] \"GET /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:48:21,880", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:48:21] \"POST /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:48:26,117", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:48:26] \"GET /files HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:48:38,247", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:48:38] \"GET /doctor_assignment HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:48:42,968", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:48:42] \"GET /doctor_assignment?NRIC=T1234567Z HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:48:53,720", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:48:53] \"GET /doctor_assignment?NRIC=T1234567Z HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:16,351", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:16] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:49:16,370", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:16] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:20,937", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:20] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:31,508", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:31] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:49:32,222", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:32] \"GET /verify2FA HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:35,845", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "S1234567A"}
+{"asctime": "2025-02-18 14:49:35,847", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:35] \"\u001b[32mPOST /verify2FA HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:49:36,113", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:36] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:39,388", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:39] \"GET /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:52,393", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:52] \"POST /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:49:57,113", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:49:57] \"GET /files HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:03,967", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:03] \"GET /doctor_assignment HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:08,103", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:08] \"GET /doctor_assignment?NRIC=T1234567S HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:12,160", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:12] \"\u001b[32mGET /confirm_patient/T1234567S HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:50:12,669", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:12] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:19,634", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:19] \"GET /upload HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:23,116", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:23] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:27,108", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:27] \"GET /files HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:43,491", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:43] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:50:43,498", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:43] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:45,672", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:45] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:50:56,234", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:56] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:50:57,264", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:50:57] \"GET /verify2FA HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:03,767", "levelname": "INFO", "message": "Login success", "ip": "127.0.0.1", "user": "T1234567A"}
+{"asctime": "2025-02-18 14:51:03,769", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:03] \"\u001b[32mPOST /verify2FA HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:51:04,074", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:04] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:09,645", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:09] \"GET /files HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:21,325", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:21] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:22,406", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:22] \"GET /landing HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:22,417", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:22] \"GET /static/error_img.png HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:30,315", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:30] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:45,588", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:45] \"\u001b[32mGET /logout HTTP/1.1\u001b[0m\" 302 -"}
+{"asctime": "2025-02-18 14:51:45,596", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:45] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:47,687", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:47] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:50,464", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:50] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:51,349", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:51] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:52,090", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:52] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:52,805", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:52] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:53,516", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:53] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:54,419", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:54] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:55,097", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:55] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:55,738", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:55] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:56,364", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:56] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:51:59,799", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:51:59] \"GET /login HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:00,784", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:00] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:01,431", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:01] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:01,957", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:01] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:02,492", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:02] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:03,046", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:03] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:03,570", "levelname": "INFO", "message": "ratelimit 5 per 1 minute (127.0.0.1) exceeded at endpoint: register"}
+{"asctime": "2025-02-18 14:52:03,571", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:03] \"GET /register HTTP/1.1\" 200 -"}
+{"asctime": "2025-02-18 14:52:03,584", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:03] \"\u001b[36mGET /static/error_img.png HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-02-18 14:52:16,414", "levelname": "INFO", "message": "127.0.0.1 - - [18/Feb/2025 14:52:16] \"GET /login HTTP/1.1\" 200 -"}
