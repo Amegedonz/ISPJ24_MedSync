@@ -23,9 +23,16 @@ with engine.connect() as conn:
     if not conn.dialect.has_schema(conn, "ISPJ_DB"): 
         conn.execute(CreateSchema("ISPJ_DB"))
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> kady
 Base = declarative_base(metadata=metadata)
 
 
 Session = sessionmaker(bind=engine)
+<<<<<<< HEAD
 dbSession = Session()
+=======
+dbSession = Session()
+>>>>>>> kady

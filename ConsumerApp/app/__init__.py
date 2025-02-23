@@ -131,6 +131,14 @@ def login():
                 twofaCheck = dbSession.query(Twofa).filter(Twofa.id == user.get_id()).first()
                 remember = form.remember.data
                 login_user(user, remember=remember)
+                if not user.is_active:
+                    logger.warning("Deactivated account login attempt", extra={
+                        "ip": request.remote_addr,
+                        "user": user.id,
+                    })
+                    flash('Account is deactivated. Please contact administrator.', 'danger')
+                    return render_template('login.html', form=form)
+                
                 if twofaCheck.twofa_enabled:
                     return redirect(url_for('verify2FA'))
                 
@@ -141,14 +149,24 @@ def login():
                     abort(500)
             
             else: 
-                # login failure log
-                logger.info("Login failed", extra={
+                consumer_login_attempts.labels(status='failed').inc()
+                # login fail log
+                logger.warning("Login failed", extra={
                     "ip": request.remote_addr,
                     "user": user.id,
                 })
                 flash("Wrong Username/Password.\n Please try again", 'danger')
+            print(verify_response())
+       
 
         except Exception as e:
+            # login error counter
+            consumer_errors.labels(f"login {e}").inc()
+            # login error log
+            logger.error(f"Login Exception: {e}", extra={
+                "ip": request.remote_addr,
+                "user": user.id,
+            })
             flash(f"An error {e} occured. Please try again.", "Warning")
 
         finally:
@@ -173,9 +191,14 @@ def register():
         verify_response = requests.post(url=f'{RECAPTCHA_API_URL}?secret={RECAPTCHA_PRIVATE_KEY}&response={grequest}').json
         print(verify_response())
         if verify_response()['success'] == False:
+            # recaptcha error log
+            logger.error("Registration invalid ReCAPTCHA", extra={
+                "ip": request.remote_addr,
+            })
             flash("Invalid reCAPTCHA")
-            return render_template('login.html', form=form)
+            return render_template('register.html', form=form)
 
+        
         user = dbSession.query(User).filter(User.id == form.id.data).first()
         if not user:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -187,10 +210,13 @@ def register():
                 new_user.phoneNumber = form.phoneNumber.data
 
             if isinstance(new_user, User):
-                populateTwoFA = Twofa(id  = new_user.id)
                 dbSession.add(new_user)
-                dbSession.add(populateTwoFA)
                 dbSession.commit()
+                # registration success log
+                logger.info("Registration success", extra={
+                    "ip": request.remote_addr,
+                    "user": new_user.id,
+                })
                 flash('Registration Successful!', "success")
                 return redirect(url_for('login'))
         else:
@@ -731,7 +757,23 @@ def not_found(e):
 def too_many_requests(e):
     logout_user()
     consumer_errors.labels(error='429').inc()
-    return render_template('error.html', error_code = 429, message = "Too many requests. Please try again later")
+    # Import form here to avoid circular imports
+    from Forms.appForms import LoginForm
+    
+    # Log rate limit exceeded
+    logger.warning("Rate limit exceeded", extra={
+        "ip": request.remote_addr,
+        "endpoint": request.endpoint
+    })
+    
+    # Track rate limit errors
+    consumer_errors.labels(error='rate_limit').inc()
+    
+    # Create form instance
+    form = LoginForm()
+    
+    # Render login page with form and 429 status
+    return render_template('error.html', form=form, error_code = 429, message = "Too many requests. Please try again later")    
 
 @app.errorhandler(500)
 def internal_error(e):

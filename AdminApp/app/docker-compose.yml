@@ -26,6 +26,13 @@ services:
     depends_on:
       - prometheus
     environment:
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=${SENDER_EMAIL}
+      - GF_SMTP_PASSWORD=${SENDER_PASSWORD}
+      - GF_SMTP_FROM_ADDRESS=${SENDER_EMAIL}
+      - GF_SMTP_FROM_NAME=MedSync Grafana
+      - GF_SMTP_SKIP_VERIFY=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_SECURITY_ALLOW_EMBEDDING=true
@@ -43,6 +50,17 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     ports:
       - "3100:3100"
+    environment:
+      - LOKI_AUTH_ENABLED=false
+      - LOKI_INGESTER_LIFECYCLER_RING_STORE=inmemory
+      - LOKI_INGESTER_LIFECYCLER_ZONE=zone-a
+      - LOKI_INGESTER_LIFECYCLER_ADDRESS=0.0.0.0
+      - LOKI_INGESTER_LIFECYCLER_PORT=3100
+      - LOKI_INGESTER_LIFECYCLER_RING_KVSTORE_STORE=inmemory
+      - LOKI_INGESTER_LIFECYCLER_RING_INSTANCE_ID=loki-1
+      - LOKI_INGESTER_LIFECYCLER_RING_INSTANCE_ADDR=loki
+      - LOKI_INGESTER_LIFECYCLER_RING_HEARTBEAT_PERIOD=5s
+      - LOKI_INGESTER_LIFECYCLER_RING_TOKENS_FILE_PATH=/loki/tokens
     volumes:
       - loki_data:/loki
       - ./loki-config.yaml:/etc/loki/local-config.yaml:ro
@@ -51,10 +69,11 @@ services:
     image: grafana/promtail:latest
     volumes:
       - ./promtail-config.yaml:/etc/promtail/config.yml:ro
-      - ../../ConsumerApp/app/logs/app.log:/var/log/app:ro
+      - ../../ConsumerApp/app/logs:/var/log/app:ro
     command: -config.file=/etc/promtail/config.yml
     depends_on:
       - loki
+    
 
   renderer:
     image: grafana/grafana-image-renderer:latest
@@ -65,3 +84,4 @@ volumes:
   prometheus_data:  # Define volumes
   grafana_data:
   loki_data:
+    driver: local

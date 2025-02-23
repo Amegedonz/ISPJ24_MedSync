@@ -6,6 +6,19 @@ from prometheus_client import Counter, generate_latest
 import os, csv
 import plotly.graph_objs as go
 import plotly.io as pio
+#SQLalchemy requirements to build models
+from sqlalchemy import Table, Column, Integer, String, Boolean, ForeignKey, Float, DateTime, text
+from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.sql import func
+ 
+
+#DB connection
+from database import engine, Base, dbSession
+
+#Login lib requirements
+from flask_login import UserMixin
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Change this to a random secret key
@@ -15,27 +28,37 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-# Placeholder user database
-users = {
-    'admin': {'password': generate_password_hash('admin123'), 'role': 'admin'},
-    'staff': {'password': generate_password_hash('staff123'), 'role': 'staff'},
-    'patient': {'password': generate_password_hash('patient123'), 'role': 'patient'}
-}
+# User Class
+class User(Base, UserMixin):
+    __tablename__ = 'users'
+
+    id = Column(String(9), primary_key=True, unique=True)
+    username = Column(String(50), nullable=False)
+    password = Column(String(255), nullable=False)
+    email = Column(String(100), unique=True)
+    phoneNumber = Column(Integer(), unique=True)
+    role = Column(String(50), nullable=False, default="Patient")
+    
+    @property
+    def is_active(self):
+        if self.not_active:
+            return False
+        return True
+    
+    def not_active(self):
+        self.not_active = True
+    
+    # def toggle_active(self):
+    #     self.active = not self.active
+    #     return not self.active
 
 # Define counters for login attempts
 login_attempts = Counter('admin_login_attempts_total', 'Total login attempts', ['status'])
 admin_views = Counter('admin_views_total', 'Admin page views', ['page'])
 
-class User(UserMixin):
-    pass
-
 @login_manager.user_loader
-def load_user(username):
-    if username not in users:
-        return None
-    user = User()
-    user.id = username
-    return user
+def load_user(id):
+    return dbSession.query(User).filter(User.id == id).first()
 
 @app.route('/')
 def home():
@@ -71,81 +94,51 @@ def admin_login():
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    # # increment dash view counter
-
-    # # Sample data for User Login Activity
-    # login_dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
-    # login_counts = [50, 75, 60, 80, 90]
-
-    # # Sample data for Failed Login Attempts
-    # failed_login_periods = ['Week 1', 'Week 2', 'Week 3', 'Week 4']
-    # failed_login_counts = [5, 7, 3, 9]
-    
-    # # Sample data for Document Uploads and Downloads
-    # dates = ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05']
-    # uploads = [20, 30, 25, 35, 45]
-    # downloads = [15, 25, 20, 30, 40]
-
-    # # Create Plotly charts
-    # login_activity_fig = go.Figure(data=[
-    #     go.Scatter(x=login_dates, y=login_counts, mode='lines+markers', name='Logins', line=dict(color='blue'))
-    # ])
-    # login_activity_fig.update_layout(title='User Login Activity Over Time', xaxis_title='Date', yaxis_title='Number of Logins')
-
-    # failed_logins_fig = go.Figure(data=[
-    #     go.Bar(x=failed_login_periods, y=failed_login_counts, name='Failed Logins', marker=dict(color='red'))
-    # ])
-    # failed_logins_fig.update_layout(title='Failed Login Attempts by Week', xaxis_title='Week', yaxis_title='Number of Failed Attempts')
-
-    # document_activity_fig = go.Figure(data=[
-    #     go.Scatter(x=dates, y=uploads, fill='tozeroy', mode='none', name='Uploads', fillcolor='rgba(0, 128, 0, 0.5)'),
-    #     go.Scatter(x=dates, y=downloads, fill='tonexty', mode='none', name='Downloads', fillcolor='rgba(0, 0, 255, 0.5)')
-    # ])
-    # document_activity_fig.update_layout(title='Document Uploads and Downloads Over Time', xaxis_title='Date', yaxis_title='Number of Documents')
-
-    # # Convert charts to HTML
-    # login_activity_html = pio.to_html(login_activity_fig, full_html=False)
-    # failed_logins_html = pio.to_html(failed_logins_fig, full_html=False)
-    # document_activity_html = pio.to_html(document_activity_fig, full_html=False)
-
     admin_views.labels(page='admin_dashboard').inc()
     return render_template('admin_dashboard.html')
 
-@app.route('/admin_notif')
-def admin_notif():
-    notifications = []
+@app.route('/user_management')
+def user_management():
+    users = dbSession.query(User).all()
+    admin_views.labels(page='user_management').inc()
+    return render_template('user_management.html', users=users)
+
+@app.route('/toggle_user_status/<user_id>', methods=['POST'])
+def toggle_user_status(user_id):
     try:
-        with open('log.csv', 'r', encoding='utf-8') as file:
-            csv_reader = csv.DictReader(file)
-            for row in csv_reader:
-                if row['levelname'] in ['ERROR', 'CRITICAL']:
-                    notifications.append({
-                        'datetime': row['asctime'],  # Assuming 'asctime' is the first column
-                        'description': row['message'],  # Assuming 'message' is the second column
-                        'level': row['levelname'],  # Assuming 'levelname' is the third column
-                        'user_id': '12'  # Assuming 'user_id' is a field in the CSV
-                    })
-                print(notifications)
-    except FileNotFoundError:
-        flash('No logs found', 'warning')
-        notifications = []
-        
-    admin_views.labels(page='admin_notification').inc()
-    return render_template('admin_notif.html', notifications=notifications)
+        user = dbSession.query(User).filter_by(id=user_id).first()
+        if user:
+            # status = user.toggle_active()
+            # user.not_active()
+            if user.is_active:
+                user.not_active()
+            else:
+                user.is_active 
+            dbSession.commit()
+            status = "activated" if user.is_active else "deactivated"
+            flash(f'User {user.username} has been {status}', 'success')
+        else:
+            flash('User not found', 'error')
+    except Exception as e:
+        dbSession.rollback()
+        flash(f'Error updating user: {str(e)}', 'error')
+    finally:
+        dbSession.close()
+    return redirect(url_for('user_management'))
 
-@app.route('/restrict_user/<int:user_id>', methods=['POST'])
-def restrict_user(user_id):
-    return "User restricted"
-
-
-@app.route('/disable_user/<int:user_id>', methods=['POST'])
-def disable_user(user_id):
-    return "User disabled"
+# @app.route('/restrict_user/<int:user_id>', methods=['POST'])
+# def restrict_user(user_id):
+#     return "User restricted"
 
 
-@app.route('/delete_user/<int:user_id>', methods=['POST'])
-def delete_user(user_id):
-    return "User deleted"
+# @app.route('/disable_user/<int:user_id>', methods=['POST'])
+# def disable_user(user_id):
+#     return "User disabled"
+
+
+# @app.route('/delete_user/<int:user_id>', methods=['POST'])
+# def delete_user(user_id):
+#     return "User deleted"
 
 @app.route('/metrics')
 def metrics():
@@ -154,4 +147,4 @@ def metrics():
 if __name__ == '__main__':
     # if not os.path.exists(app.config['UPLOAD_FOLDER']):
     #     os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)
