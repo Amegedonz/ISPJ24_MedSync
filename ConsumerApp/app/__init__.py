@@ -469,6 +469,208 @@ def delete_file(filename):
     return {"success": False, "error": "File not found!"}, 404
 
 
+
+app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['META_FOLDER'] = 'meta'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['META_FOLDER'], exist_ok=True)
+
+# @app.route('/upload')
+# def upload_page():
+#     return render_template('upload.html')
+
+def get_file_model():
+    from DBcreateTables import File  # Import only when needed
+    return File
+
+File = get_file_model()
+
+@app.route('/landing')
+@roles_required('Doctor')
+def landing():
+    return render_template('landing.html')
+
+@app.route('/upload', methods=['GET', 'POST'])
+@roles_required('Doctor')
+def upload():
+    doctor = dbSession.query(Doctor).filter(Doctor.id == current_user.get_id()).first()
+
+    if request.method == 'GET':
+        default_values = {
+            "license" : doctor.license_number, 
+            "clinic" : doctor.facility, 
+            "docName" : current_user.username, 
+            "date": datetime.now().strftime('%Y-%m-%d'),
+            "time": datetime.now().strftime('%H:%M')
+        }
+        return render_template('upload.html', **default_values)
+
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+
+    if file:
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filepath)
+
+        # Process metadata
+        metadata = {key: request.form[key] for key in request.form}
+        metadata_filepath = os.path.join(app.config['META_FOLDER'], f"{file.filename}_metadata.json")
+        with open(metadata_filepath, 'w') as metadata_file:
+            json.dump(metadata, metadata_file)
+
+        # Add watermark if the file is a PDF
+        watermark_hash = None
+        if file.filename.endswith('.pdf'):
+            watermark_text = "Medsync"
+            add_watermark(filepath, filepath, watermark_text)
+            watermark_hash = compute_hash_from_text(watermark_text)
+
+        # Compute hash of the file
+        file_hash = compute_hash(filepath)
+
+        # Store file and metadata in the database
+        new_file = File(
+            filename=file.filename,
+            file_path=filepath,
+            name=metadata.get('name'),
+            license_no=metadata.get('license_no'),
+            date=metadata.get('date'),
+            time=metadata.get('time'),
+            facility=metadata.get('facility'),
+            patient_nric=metadata.get('patient_nric'),
+            type=metadata.get('type')
+        )
+
+        try:
+            dbSession.add(new_file)
+            dbSession.commit()
+        except SQLAlchemyError as e:
+            flash(f"Error saving file to database: {e}")
+            dbSession.rollback()
+
+        return render_template('upload_success.html', file_hash=file_hash, watermark_hash=watermark_hash, metadata=metadata, filename=file.filename)
+
+
+@app.route('/view/<filename>')
+def view_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    # If file doesn't exist, return an error
+    if not os.path.exists(file_path):
+        flash("File not found!")
+        return redirect(url_for('list_files'))
+
+    # Determine MIME type
+    mimetype, _ = mimetypes.guess_type(file_path)
+    is_pdf = mimetype == 'application/pdf'
+    content = None
+
+    # Read text file content if applicable
+    if mimetype and mimetype.startswith('text'):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+        except UnicodeDecodeError:
+            with open(file_path, 'r', encoding='latin-1') as file:
+                content = file.read()
+
+    # Pass the file URL for embedding
+    file_url = url_for('serve_uploaded_file', filename=filename)
+
+    return render_template('view.html', 
+                           filename=filename, 
+                           is_pdf=is_pdf, 
+                           file_url=file_url, 
+                           content=content)
+    
+@app.route('/upload/<filename>')
+def serve_uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/files', methods=['GET'])
+@roles_required('Patient', 'Doctor')
+def list_files():
+    try:
+        if current_user.role == 'Doctor':
+            # Get the doctor details
+            doctor = dbSession.query(Doctor).filter(Doctor.id == current_user.get_id()).first()
+
+            # Query all files directly by joining with PatientAssignment
+            patient_files = dbSession.query(File).join(PatientAssignment, File.patient_nric == PatientAssignment.patient_id).filter(PatientAssignment.doctor_id == doctor.license_number).all()
+        
+        else:
+            patient_files = dbSession.query(File).filter(File.patient_nric == current_user.get_id()).all()
+
+        
+        
+    except:
+        dbSession.rollback()
+
+    finally:
+        dbSession.close()
+
+    # Convert files into a dictionary for rendering
+    files_data = [
+        {
+            "id": file.id, 
+            "filename": file.filename,
+            "patient_nric": file.patient_nric,
+            "document_type": file.type,
+            "facility": file.facility,
+            "file_path": file.file_path,
+        }
+        for file in patient_files
+    ]
+    return render_template('download.html', files=files_data)
+
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    file = dbSession.query(File).filter_by(filename=filename).first()
+    if file:
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+    flash("File not found!")
+    return redirect(url_for('list_files'))
+
+@app.route('/delete/<filename>', methods=['DELETE'])
+@login_required  # Ensures only logged-in users can delete
+@roles_required('Doctor')  # Ensures only doctors can delete
+def delete_file(filename):
+    file = dbSession.query(File).filter_by(filename=filename).first()
+
+    if not file:
+        return jsonify({"error": "File not found"}), 404
+
+    try:
+        # Delete the file from the filesystem
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        metadata_path = os.path.join(app.config['META_FOLDER'], f"{filename}_metadata.json")
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        if os.path.exists(metadata_path):
+            os.remove(metadata_path)
+
+        # Delete record from database
+        dbSession.delete(file)
+        dbSession.commit()
+
+        return jsonify({"success": True, "message": "File deleted successfully"}), 200
+
+    except Exception as e:
+        dbSession.rollback()
+        return jsonify({"success": False, "error": f"Error deleting file: {str(e)}"}), 500
+
+    finally:
+        dbSession.close()
+        
 @app.route('/metrics')
 def metrics():
     return generate_latest()
@@ -554,4 +756,4 @@ def gateway_timeout(e):
 
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
-    app.run(debug=True)
+    app.run(ssl_context=('cert.pem','key.pem'),debug=True)
